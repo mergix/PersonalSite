@@ -1,0 +1,10 @@
+.container{
+
+}
+
+
+.grid{
+    display: grid;
+    gap: 40px;
+    grid-template-columns: repeat(3, 1fr);
+}

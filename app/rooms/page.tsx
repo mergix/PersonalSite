@@ -1,46 +1,44 @@
-// 'use client';
+// "use client";
 
-import React from "react";
-import Link from 'next/link';
-import styles from './Rooms.module.css';
-import CreateNote from './CreateRoom';
+import React from 'react'
+import styles from "./page.module.css";
+import Link from 'next/link'
+import RoomCard from "../../components/roomCard/RoomCard"
+import https from 'https'
 import axios from 'axios';
-import CreateNote2 from "./CreateRoomTypes";
 
-//  async function getRooms(){
+
+const httpsAgent = new https.Agent({
+    rejectUnauthorized: false,
+});
+
+async function getData() {
+  const res = await axios.get('http://localhost:5279/allRooms', 
+  { withCredentials:true });
   
-//   const res = await fetch(`https://localhost:7272/allRooms`, { cache: 'no-store' });
-//   const data = await res.json();
-//   return data?.result as any[];
-// }
-
-export default async function HomePage(){
-  // const rooms = await getRooms();
-    return(
-       <div>
-      <h1>Notes</h1>
-      {/* <div className={styles.grid}>
-      {rooms?.map((note) => {
-          return <Room key={note.id} note={note} />;
-        })}
-      </div> */}
-
-      {/* <CreateNote />
-      <CreateNote2 /> */}
-    </div>
-    );
+  if (!res.data) {
+    console.log("bad")
+  }
+ 
+  return res.data;
 }
 
-function Room({ room }: any) {
-    const { id, roomNo, roomType, status } = room || {};
-  
-    return (
-      <Link href={`/rooms/${id}`}>
-        <div className={styles.note}>
-          <h2>{roomNo}</h2>
-          <h5>{roomType}</h5>
-          <p>{status}</p>
-        </div>
-      </Link>
-    );
-  }
+ async function  Rooms() {
+
+  const data = getData();
+data.then(res => console.log(res.result))
+ 
+  return (
+    <div className={styles.container}>
+    <h1 className={styles.title}>Rooms</h1>
+    <div className={styles.grid}>
+      {data.then(res => res.result.map((item) => (
+          <RoomCard img={"/Img/placeholder.jpg"} No={item.roomNo} title={"Test Title"} desc={"Test description"} status={"Taken"}/>
+        )))}
+    </div>
+  </div>
+  )
+}
+
+{/* <RoomCard img={"/Img/placeholder.jpg"} No={20} title={"Test Title"} desc={"Test description"} status={"Taken"}/> */}
+export default Rooms
