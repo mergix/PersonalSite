@@ -6,7 +6,7 @@ import Flag from "../../public/Img/contact.jpg"
 function Contact() {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}> Let's Chat</h1>
+      <h1 className={styles.title}> Let&apos;s Chat</h1>
       <div className={styles.content}>
         <div className={styles.imgContainer}>
         <Image src={Flag}
