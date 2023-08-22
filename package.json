@@ -3,15 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_EXTRA_CA_CERTS=\"$(cat ./certs/.capath)\" node scripts/create-local-server.js",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "ssl:setup": "node scripts/create-ssl-certs.js"
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED=0 node server.js",
+    "lint": "next lint"
+
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "chalk": "^5.3.0",
     "next": "13.4.13",
     "react": "18.2.0",
     "react-dom": "18.2.0"
